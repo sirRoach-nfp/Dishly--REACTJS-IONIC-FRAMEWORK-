@@ -1,0 +1,130 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+
+.container{
+    width: 100vw;
+    height: 100vh;
+
+   // border: 1px solid rgb(170, 0, 255);
+    display: flex;
+    flex-direction: column;
+
+
+
+
+    .headerBox{
+       // border: 1px solid red;
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .header{
+            font-weight: 800;
+            font-size: 35px;
+            letter-spacing: 3px;
+            color: #333333;
+            font-family: 'League Spartan', sans-serif;
+        }
+
+        .tag{
+            color:  #777777;
+            font-size: 15px;
+        }
+
+    }
+
+    .fieldBox{
+       // border: 1px solid red;
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+
+        .inputBox{
+            //border: 1px  red;
+            width: 90%;
+            margin-bottom: 25px;
+
+
+            .icon {
+                font-size: 35px; /* Increase icon size */
+                color: #62825d; /* Change icon color */
+            }
+
+
+             /* Adjust input field width and focused color */
+            .MuiTextField-root {
+                width: 100%; /* Adjust the width of the input field */
+            }
+
+            .MuiInput-underline {
+                &:before {
+                    border-bottom: 2px solid #777777; /* Default border color */
+                }
+
+                &:after {
+                    border-bottom: 2px solid #62825d; /* Focused border color */
+                }
+            }
+
+            /* Adjust label color when focused */
+            .MuiInputLabel-root {
+                color: #777777;
+                &.Mui-focused {
+                    color: #62825d; /* Label color when focused */
+                }
+            }
+            .MuiInputBase-input {
+                color: #777777; /* Input text color */
+                &::placeholder {
+                    color: #777777; /* Placeholder text color */
+                    opacity: 1; /* Ensure full opacity */
+                }
+            }
+        }
+    }
+
+    .buttonBox{
+        //border: 1px solid red;
+        flex: 1;
+        width: 100%;
+
+        .forgotPass{
+           
+            a{
+                 text-decoration: none;
+                 color: #62825d;
+                 font-size: 12px;
+            }
+        }
+    }
+
+    .footerBox{
+        width: 100%;
+        //border: 1px solid red;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+
+        .singup{
+            color: #777777;
+            font-size: 12px;
+            margin-bottom: 15px;
+            a{
+                text-decoration: none;
+                color: #62825d;
+                font-size: 12px;
+            }
+        }
+    }
+}
