@@ -1,0 +1,82 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+.cardPickContainer{
+    width: 90%;
+    height: 95px;
+    background-color: #fff5f5;
+    border-radius: 5px;
+    border: 1px solid #E6E6E6;
+
+    padding: 5px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    gap: 5px;
+
+
+    .imgContainer{
+        flex: 1;
+        //border: 1px solid red;
+        height: 95%;
+        border-radius: 5px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+
+
+        .imgPrev{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            //border: 1px solid blue;
+            border-radius: 5px;
+        }
+    }
+
+    .infoContainer{
+        flex: 2;
+        //border: 1px solid rgb(0, 0, 0);
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+
+        .infoTextContainer{
+            //border: 1px solid red;
+            width: 100%;
+
+            .titleRecipe{
+                margin-left: 10px;
+                font-family: 'Urbanist';
+                font-size: 15px;
+                font-weight: 600;
+                color: #333333;
+                margin-top: 0;
+                margin-bottom: 0px;
+            }
+
+            .titleAuthor{
+                margin-left: 10px;
+                font-size: 14px;
+                font-family: 'Urbanist';
+                font-weight: 600;
+                color: #666666 ;
+                margin-top: 0;
+            }
+        }
+
+        .starsContainer{
+            margin-left: 10px;
+            width: fit-content;
+            //border: 1px solid green;
+            display: flex;
+            flex-direction: row;
+            margin-top: auto;
+
+           .starReview{
+            color: #ff3131;
+            font-size: 16px;
+           }
+        }
+    }
+}

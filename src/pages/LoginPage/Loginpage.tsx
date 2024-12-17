@@ -1,5 +1,6 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar,IonBreadcrumbs,IonButton } from '@ionic/react';
-
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar,IonBreadcrumbs,IonButton,useIonToast } from '@ionic/react';
+import { globe } from 'ionicons/icons';
+import { closeCircleOutline } from 'ionicons/icons';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import KeyIcon from '@mui/icons-material/Key';
@@ -9,9 +10,78 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 
+
+import { SetStateAction, useState } from 'react';
 import './loginpage.scss'
 
+
+
+import { auth } from '../../firebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
 const Loginpage: React.FC = () => {
+
+
+
+    const [present] = useIonToast();
+
+    const [username,setUsername] = useState("")
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    const [error,setError] = useState("")
+
+
+    const usernameHandler = (event: { target: { value: SetStateAction<string>; }; }) => {
+        setUsername(event.target.value);
+        console.log(username)
+    }
+
+    const passwordHandler = (event:{target:{value: SetStateAction<string>;};}) =>{
+        setPassword(event.target.value)
+    }
+
+
+    const emailHandler = (event:{target:{value: SetStateAction<string>;};}) =>{
+        setEmail(event.target.value)
+    }
+
+
+    const handleLogin = async () => {
+        try{
+            const userCredential = await signInWithEmailAndPassword(auth,email,password)
+            console.log("Logged in user:", userCredential.user)
+        }
+        catch(error: any){
+            console.error("Error during login: ", error.message)
+            setError(error.message)
+           
+
+            if (error.code == "auth/invalid-credential"){
+                console.log("Account don't exist")
+                present({
+                    message: 'Account dont exist ',
+                    duration: 1500,
+                    position: "top",
+                    icon: closeCircleOutline,
+                    color:"danger" 
+                  });
+            }
+
+            if (error.code == "auth/invalid-email"){
+                console.log("Account don't exist")
+                present({
+                    message: 'The email format is invalid please try again',
+                    duration: 1500,
+                    position: "top",
+                    icon: closeCircleOutline,
+                    color:"danger" 
+                  });
+            }
+        }
+    }
+
+
+
     return (
         <IonPage>
             <IonContent>
@@ -27,17 +97,17 @@ const Loginpage: React.FC = () => {
                     <div className="fieldBox">
                         <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="inputBox">
                             <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} className='icon'/>
-                            <TextField id="input-with-sx" label="Username" variant="standard" />
+                            <TextField id="input-with-sx" label="Email" variant="standard" onChange={emailHandler} />
                         </Box>
 
                         <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="inputBox">
                             <KeyIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} className='icon' />
-                            <TextField id="input-with-sx" label="Password" variant="standard" />
+                            <TextField id="input-with-sx" label="Password" variant="standard" onChange={passwordHandler}/>
                         </Box>
                     </div>
 
                     <div className="buttonBox">
-                        <Button variant="contained" className='buttonStyleLogin'>LOGIN</Button>
+                        <Button variant="contained" className='buttonStyleLogin' onClick={handleLogin}>LOGIN</Button>
                         <span className="forgotPass"><a href="/forgotpass">FORGOT PASSWORD?</a></span>
                     </div>
                     <div className="footerBox">

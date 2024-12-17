@@ -6,6 +6,7 @@ import Accesspage from './pages/AccessPage/Accesspage';
 import Loginpage from './pages/LoginPage/Loginpage';
 import Signuppage from './pages/SignupPage/Signuppage';
 import Forgotpasspage from './pages/ForgotpasswordPage/Forgotpasspage';
+import MainPage from './pages/Main/MainPage';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -67,6 +68,13 @@ const App: React.FC = () => (
         <Route exact path="/">
           <Redirect to="/welcome" />
         </Route>
+
+        <Route exact path= "/main">
+          <MainPage/>
+        </Route>
+
+
+
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
