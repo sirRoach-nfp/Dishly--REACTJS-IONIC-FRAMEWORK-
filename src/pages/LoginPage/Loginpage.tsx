@@ -9,18 +9,20 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
-
+import { useIonRouter } from '@ionic/react';
 
 import { SetStateAction, useState } from 'react';
 import './loginpage.scss'
 
 
 
-import { auth } from '../../firebaseConfig';
+import { auth, db } from '../../firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 
 const Loginpage: React.FC = () => {
 
+    const router = useIonRouter();
 
 
     const [present] = useIonToast();
@@ -47,9 +49,52 @@ const Loginpage: React.FC = () => {
 
 
     const handleLogin = async () => {
+        
         try{
             const userCredential = await signInWithEmailAndPassword(auth,email,password)
             console.log("Logged in user:", userCredential.user)
+
+
+
+
+
+
+            const userId = userCredential.user.uid;
+            //const username = userCredential.use
+            console.log(userId)
+
+
+
+
+
+
+
+            const userdocRef = doc(db,"users",userId)
+
+            const userDocSnap = await getDoc(userdocRef)
+            console.log("doc snap ", userDocSnap.data())
+            
+            
+
+            if(userDocSnap.exists()) {
+
+                const userData = userDocSnap.data()
+
+
+                const username = userData?.username;
+                localStorage.setItem("userDocId", userId);
+                localStorage.setItem("username", username);
+                router.push("/main");
+    
+
+
+
+            }
+            else{
+                console.error("No user found with this UID. ");
+            }
+                
+            
         }
         catch(error: any){
             console.error("Error during login: ", error.message)

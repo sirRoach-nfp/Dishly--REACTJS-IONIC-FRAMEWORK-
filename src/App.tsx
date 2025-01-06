@@ -36,6 +36,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import MealTab from './tabs/MealPlanEditTab/Mealplantab';
 
 setupIonicReact();
 
@@ -55,6 +56,8 @@ const App: React.FC = () => (
           <Loginpage/>
         </Route>
 
+        <Route exact path="/" render={() => <Redirect to="/welcome" />} />
+
 
         <Route exact path="/signup">
           <Signuppage/>
@@ -72,6 +75,8 @@ const App: React.FC = () => (
         <Route exact path= "/main">
           <MainPage/>
         </Route>
+
+        <Route exact path={"/cart/editplan/:id"} component={MealTab}/>
 
 
 

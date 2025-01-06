@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+
+.ingredientInputContainer{
+    //border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 95%;
+    gap: 10px;
+
+
+
+}
+
+
+.ingredientInputField{
+    flex: 2;
+    width: 50%;
+    font-family: 'Urbanist';
+    
+}
+
+
+.quantityInputField{
+    flex: 1;
+    width: 30%;
+    font-family: 'Urbanist';
+}
+
+.deleteButton{
+
+    --background: #ff3131;
+
+}

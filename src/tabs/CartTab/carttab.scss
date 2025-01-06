@@ -1,0 +1,56 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.cartContainer{
+
+    width: 100%;
+    height: fit-content;
+    //border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+
+    .headerDivCC{
+        width: 100%;
+        height: fit-content;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        //border: 1px solid red;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .headerCC{
+            margin: 0;
+            font-size: 20px;
+            font-family: 'Urbanist';
+            color: #333333;
+            font-weight: normal;
+        }
+    }
+
+
+    .mealplansDiv{
+        width: 100%;
+        height: fit-content;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        //border: 1px solid green;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .addMealPlan{
+        font-family: 'Urbanist';
+        font-size: 12px;
+    }
+}

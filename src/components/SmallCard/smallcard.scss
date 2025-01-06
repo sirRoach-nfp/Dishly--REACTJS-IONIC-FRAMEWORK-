@@ -48,6 +48,7 @@
             word-break: break-word; /* Breaks words when they exceed container */
             overflow-wrap: break-word;
             margin: 0;
+            text-overflow: ellipsis;
         }
 
         .authorTagSC{

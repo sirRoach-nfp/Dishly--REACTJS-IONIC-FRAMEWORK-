@@ -1,0 +1,37 @@
+{
+    "username": "JohnDoe",
+    "email": "johndoe@gmail.com",
+    "yourRecipes": [
+      {
+        "recipeId": "abc123",
+        "title": "Chocolate Cake",
+        "description":"test",
+        "image": "url",
+        "maincategory": "Desserts",
+        "subcategory":"Desserts"
+      }
+    ],
+    "mealPlanner": [
+      {
+        "id":"1234Az",
+        "title": "Weekly Groceries",
+        "items": [
+          { "ingredient": "Milk", "quantity": "1 liter", "checked": false },
+          { "ingredient": "Flour", "quantity": "2 kg", "checked": true }
+        ],
+        "createdAt": "2024-12-18T00:00:00Z"
+      },
+      {
+        "id":"1234Ab",
+        "title": "Weekly Groceries",
+        "items": [
+          { "ingredient": "Milk", "quantity": "1 liter", "checked": false },
+          { "ingredient": "Flour", "quantity": "2 kg", "checked": true }
+        ],
+        "createdAt": "2024-12-18T00:00:00Z"
+      }
+    ]
+}
+  
+
+

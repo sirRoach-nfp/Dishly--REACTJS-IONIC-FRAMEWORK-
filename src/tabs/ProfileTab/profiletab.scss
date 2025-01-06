@@ -1,0 +1,214 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+.profileContainer{
+    width: 100%;
+    min-height: 100vh;
+    //border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .accountCardWrapper{
+        width: 100%;
+        height: fit-content;
+        //border: 1px solid blue;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        margin-top: 20px;
+        box-shadow: 0 5px 10px #d4d4d4;
+        padding-bottom: 10px;
+        padding-left: 10px;
+       
+
+
+        .profileIconWrapper{
+            width: 60px;
+            height: 60px;
+            //border: 1px solid red;
+            .avatar{
+                width: 100%;
+                height: 100%;
+            }
+            
+        }
+
+        .profileInfoWrapper{
+            width: 270px;
+            height: fit-content;
+           // border: 1px solid green;
+
+            overflow: hidden; /* Prevents overflow */
+            display: block; /* Ensures block-level behavior */
+
+
+            .userTag{
+                margin: 0;
+                color: #333333;
+                font-family: 'Urbanist';
+                white-space: nowrap;
+                overflow: hidden; /* Hides overflowed content */
+                text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+            }
+
+            .emailTag{
+                font-family: 'Urbanist';
+                font-size: 15px;
+                color: rgb(51, 51, 51);
+                white-space: nowrap;
+                overflow: hidden; /* Hides overflowed content */
+                text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+            }
+        }
+    }
+
+    .ownRecipeWrapper{
+        margin-top: 30px;
+        width: 95%;
+        //border: 1px solid red;
+
+
+        .ownRecipeHeader{
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+            .orwHeader{
+                margin: 0;
+                color: #333333;
+                font-family: 'Urbanist';
+            }
+
+            .viewAll{
+                font-family: 'Urbanist';
+                font-size: 15px;
+                text-decoration: underline;
+                color: rgb(51, 51, 51);
+            }
+
+            
+        }
+
+
+        .recipeItemsWrapper{
+            width: 100%;
+            margin-top: 20px;
+            //border: 1px solid blue;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+            justify-items: center;
+        
+        }
+
+
+    }
+
+
+    .savedRecipes{
+        margin-top: 30px;
+        width: 95%;
+       // border: 1px solid red;
+
+        .savedRecipeHeader{
+            width: 100%;
+            height: fit-content;
+           // border: 1px solid blue;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+
+
+            
+            .orwHeader{
+                margin: 0;
+                font-family: 'Urbanist';
+                color: #333333;
+            }
+
+            .viewAll{
+                font-family: 'Urbanist';
+                font-size: 15px;
+                text-decoration: underline;
+                color: rgb(51, 51, 51);
+            }
+
+        }
+
+
+        .savedItemsWrapper{
+            width: 100%;
+            margin-top: 20px;
+           //s border: 1px solid blue;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .accountManagementDiv{
+        margin-top: 30px;
+        border-top: 1px solid rgb(179, 179, 179);
+        padding-top: 20px;
+        width: 95%;
+
+        .accountManagementHeaderDiv{
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 3px;
+            margin-bottom: 30px;
+
+
+            .acHeader{
+                margin: 0;
+                font-family: 'Urbanist';
+                color: #333333;
+            }
+
+            .settingIcon{
+                color: #333333;
+                font-size: 20px;
+            }
+
+        }
+
+
+
+        .optionDiv{
+            width: 100%;
+            //border: 1px solid green;
+            padding-left: 20px;
+  
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+
+            .optionTag{
+                font-family: 'Urbanist';
+                color: rgb(51, 51, 51);
+                letter-spacing: .5px;
+            }
+
+
+            .optionIcon{
+                font-size: 18px;
+                margin-right: 5px;
+                color: #333333;
+            }
+        }
+    }
+
+
+}

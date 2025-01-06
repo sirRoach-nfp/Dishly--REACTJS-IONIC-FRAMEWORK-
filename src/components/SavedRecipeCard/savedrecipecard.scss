@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+.srCardWrapper{
+    width: 100%;
+    height: fit-content;
+    border: 1px solid rgb(102, 102, 102);
+    display: flex;
+    align-items: center;
+    //padding-top: 5px;
+    //padding-bottom: 5px;
+    gap: 5px;
+    margin-bottom: 10px;
+
+
+
+
+    .srInfoWrapper{
+        width: 80%;
+        height: 100%;
+        display: flex;
+
+        overflow: hidden; /* Prevents overflow */
+        white-space: nowrap; /* Ensure text does not wrap */
+        text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+        display: block; /* Ensures block-level behavior */
+        
+
+
+        flex-direction: column;
+        .srRecipeName{
+            margin: 0;
+            margin-left: 10px;
+            font-family: 'Urbanist';
+            letter-spacing: .5px;
+
+
+
+
+            color: #333333;
+            overflow: hidden; /* Ensures text does not overflow */
+            white-space: nowrap; /* Prevents wrapping */
+            text-overflow: ellipsis; /* Ensures ellipsis appears for overflow */
+            width: 100%; /* Matches the parent container's width */
+            display: block; 
+        }
+
+        .srAuthorTag{
+            margin-left: 10px;
+            font-family: 'Urbanist';
+            letter-spacing: .5px;
+            color: rgb(51, 51, 51);
+            font-size: 14px;
+        }
+    }
+
+
+    .srDeleteWrapper{
+        width: 20%;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        //border: 1px solid red;
+        margin-left: auto;
+
+        .srButton{
+            --background: #ff3131;
+        }
+
+        .srIcon{
+            font-size: 25px;
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+}
