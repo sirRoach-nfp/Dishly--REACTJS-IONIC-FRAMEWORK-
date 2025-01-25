@@ -7,6 +7,7 @@ import Loginpage from './pages/LoginPage/Loginpage';
 import Signuppage from './pages/SignupPage/Signuppage';
 import Forgotpasspage from './pages/ForgotpasswordPage/Forgotpasspage';
 import MainPage from './pages/Main/MainPage';
+import Recipepage from './pages/RecipePage/Recipepage';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -37,6 +38,8 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import MealTab from './tabs/MealPlanEditTab/Mealplantab';
+import Expandedpage from './pages/ExpandedPage/Expandedpage';
+
 
 setupIonicReact();
 
@@ -44,7 +47,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
+        <Route exact  path="/home">
           <Home />
         </Route>
 
@@ -56,9 +59,6 @@ const App: React.FC = () => (
           <Loginpage/>
         </Route>
 
-        <Route exact path="/" render={() => <Redirect to="/welcome" />} />
-
-
         <Route exact path="/signup">
           <Signuppage/>
         </Route>
@@ -66,6 +66,11 @@ const App: React.FC = () => (
         
         <Route exact path="/forgotpass">
           <Forgotpasspage/>
+        </Route>
+
+
+        <Route exact path="/Recipe">
+          <Recipepage/>
         </Route>
 
         <Route exact path="/">
@@ -76,7 +81,10 @@ const App: React.FC = () => (
           <MainPage/>
         </Route>
 
-        <Route exact path={"/cart/editplan/:id"} component={MealTab}/>
+        <Route exact path={"/cart/editplan/:id"}>
+          <MealTab/>
+        </Route>
+        <Route exact path="/viewAll" component={Expandedpage}/>
 
 
 

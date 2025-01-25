@@ -1,0 +1,57 @@
+
+
+
+.containerEP{
+    width: 100%;
+    min-height: 100%;
+    border: 1px solid red;
+
+    .headerDivEP{
+        width: 100%;
+        height: fit-content;
+        //border: 1px solid red;
+        margin-bottom: 5px; 
+        padding-top: 15px;
+        padding-bottom: 15px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .categoryTagEP{
+            font-size: 18px;
+        }
+
+        .backButton{
+            font-size: 18px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+
+    .sortWrapper{
+        width: 100%;
+        height: fit-content;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid blue;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .sortTag{
+            font-size: 15px;
+        }
+    }
+
+
+
+    .itemWrappersEP{
+        display: grid;              // Use grid layout
+        grid-template-columns: repeat(2, 1fr); // 2 cards per row
+        gap: 16px;                  // Spacing between cards
+        padding: 10px;     
+        border: 1px solid green;
+        margin-top: 5px;
+    }
+}

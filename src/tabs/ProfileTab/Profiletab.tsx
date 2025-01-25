@@ -7,21 +7,55 @@ import VerySmallCard from '../../components/VerySmallCard/VerySmallCard';
 import SavedRecipeCard from '../../components/SavedRecipeCard/SavedRecipeCard';
 import './profiletab.scss'
 import Avatar from '@mui/material/Avatar';
-import { settingsOutline } from 'ionicons/icons';
+import { save, settingsOutline } from 'ionicons/icons';
 import { keyOutline } from 'ionicons/icons';
 import { trashBinOutline } from 'ionicons/icons';
 import { logOutOutline } from 'ionicons/icons';
 
+import { collection, doc, getDoc, getDocs, QuerySnapshot,getFirestore, updateDoc, arrayUnion  } from 'firebase/firestore';
+
+import { db } from '../../firebaseConfig';
+
 
 import { getAuth, signOut } from "firebase/auth";
+import { useEffect, useState } from 'react';
+
+
+
+type saved = {
+    recipeId : string,
+    recipeName: string,
+    recipeCover: string
+}
+
+type own = {
+    recipeId : string,
+    title : string,
+    recipeCover : string,
+}
+
+type savedRecipeData = {
+    savedData: saved []
+}
+
+
+
+
+
+
+
+
+
+
+
 const Profiletab: React.FC = () =>{
     const router = useIonRouter()
 
     const userDocId = localStorage.getItem("userDocId") as string
     const username = localStorage.getItem("username") as string
     const email = localStorage.getItem("")
-
-
+    const [savedRecipes,setSavedRecipes] = useState<saved []> ([])
+    const [ownRecipe,setOwnRecipe] = useState<own []> ([])
 
     function stringAvatar(name: string) {
         const nameParts = name?.split(' ') || [];
@@ -51,6 +85,51 @@ const Profiletab: React.FC = () =>{
         
     }
 
+
+    useEffect(()=> {
+
+        const fetchUserRecipeData = async() => {
+            try{
+                const recipeDataDocRef = doc(db,"users",userDocId)
+
+                const userDoc =await getDoc(recipeDataDocRef)
+
+                if(userDoc.exists()){
+                    const savedRecipe = userDoc.data().savedRecipes
+                    const ownRecipe = userDoc.data().yourRecipes
+                    setOwnRecipe(ownRecipe)
+                    setSavedRecipes(savedRecipe)
+                   
+                }
+
+            }catch(err){}
+        }
+
+        fetchUserRecipeData()
+    },[])
+
+
+
+
+    const deleteMealPlan = async (id:string) => {
+        try{
+            const updatedSavedRecipe = savedRecipes.filter((save) => save.recipeId !== id);
+            const docRef = doc(db,"users",userDocId)
+            await updateDoc(docRef,{savedRecipes:updatedSavedRecipe})
+            setSavedRecipes(updatedSavedRecipe)
+            console.log("removed Success")
+        }catch(err){
+            console.error(err)
+        }
+    }
+
+
+
+    const checkdatacontent = () => {
+        console.log(savedRecipes)
+    }
+
+
     return(
         <IonPage>
 
@@ -60,7 +139,7 @@ const Profiletab: React.FC = () =>{
 
                     <div className="accountCardWrapper">
                         <div className="profileIconWrapper">
-                            <Avatar className='avatar' {...stringAvatar(username)}/>
+                            <Avatar className='avatar' {...stringAvatar(username)} />
                         </div>
                         <div className="profileInfoWrapper">
                             <h5 className="userTag">{username}</h5>
@@ -78,12 +157,10 @@ const Profiletab: React.FC = () =>{
                             </span>
                         </div>
                         <div className="recipeItemsWrapper">
-                            <VerySmallCard/>
-                            <VerySmallCard/>
-                            <VerySmallCard/>
-                            <VerySmallCard/>
-                            <VerySmallCard/>
-                            <VerySmallCard/>
+                            {ownRecipe.map((ownRes)=> {
+                                return <VerySmallCard data={ownRes}/>
+                            })}
+             
 
                         </div>
                     </div>
@@ -102,11 +179,14 @@ const Profiletab: React.FC = () =>{
 
 
                         <div className="savedItemsWrapper">
-                            <SavedRecipeCard/>
-                            <SavedRecipeCard/>
-                            <SavedRecipeCard/>
-                            <SavedRecipeCard/>
-                            <SavedRecipeCard/>
+
+
+                            {savedRecipes.map((save)=> {
+                                return <SavedRecipeCard data={save} onDelete={deleteMealPlan}/>
+                            })}
+                            
+                    
+          
                         </div>
                     </div>
 
@@ -115,7 +195,7 @@ const Profiletab: React.FC = () =>{
                     <div className="accountManagementDiv">
                         <div className="accountManagementHeaderDiv">
                             <IonIcon icon={settingsOutline} className='settingIcon'/>
-                            <h5 className="acHeader">Account management</h5>
+                            <h5 className="acHeader" onClick={checkdatacontent}>Account management</h5>
                         </div>
 
                         <div className="optionDiv">

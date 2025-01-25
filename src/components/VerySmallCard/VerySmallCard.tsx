@@ -9,16 +9,27 @@ import './verysmallcard.scss'
 import { createOutline } from 'ionicons/icons';
 
 
-const VerySmallCard: React.FC = () => {
+
+interface propStructure{
+    recipeId:string,
+    recipeCover:string,
+    title:string,
+}
+
+interface prop{
+    data: propStructure
+}
+
+const VerySmallCard: React.FC<prop> = ({data}) => {
     return(
 
         <div className="verySmallCardWrapper">
             <div className="imageWrapperVSC">
-                <img src="" alt="" className="recipesnapshotvsc" />
+                <img src={data.recipeCover} alt="" className="recipesnapshotvsc" />
             </div>
             <div className="itemInformationWrapper">
                 <h4 className="recipenametag">
-                    Home made madafaka sht fuck fuck
+                    {data.title}
                 </h4>
             </div>
 

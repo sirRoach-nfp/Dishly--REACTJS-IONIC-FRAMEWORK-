@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+.recipePageContainer{
+
+
+    @keyframes pop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2); // Slightly larger
+        }
+        100% {
+          transform: scale(1); // Back to normal size
+        }
+      }
+
+
+      
+    width: 100%;
+    min-height: 100%;
+    height: fit-content;
+    //border: 1px solid red;
+    //padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .snapshotDivRP{
+        width: 100%;
+        height: 250px;
+        //border: 1px solid blue;
+        margin-bottom: 30px;
+        
+
+        .imgRP{
+            width: 100%;
+            height: 100%;
+            border-bottom-left-radius: 20px; /* Adjust the radius value */
+            border-bottom-right-radius: 20px;
+            object-fit: cover;
+        }
+    }
+
+
+
+    .infoWrapperRP{
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        //border: 1px solid blue;
+        width: 95%;
+        margin-bottom: 10px;
+        gap: 7px;
+
+        .nameTagRP{
+            margin: 0;
+            font-family: 'Urbanist';
+            color: #333333;
+            font-weight: 600;
+            font-size: 25px;
+        }
+
+        .authorTagRP{
+            margin: 0;
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+
+        .dateTagRP{
+            margin: 0;
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+
+
+
+    }
+
+
+    .categoryWrapperRP{
+        width: 95%;
+        height: fit-content;
+        //border: 1px solid blue;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        border-top: 1px solid #B3B3B3;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #B3B3B3;
+
+        .categoryWrapperInner{
+            width: 100%;
+            height: fit-content;
+            //border: 1px solid green;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+
+
+            .categoryIconRP{
+                width: 35px;
+                height: 35px;
+                //border: 1px solid red;
+            }
+
+
+            .categoryTagRP{
+                font-family: 'Urbanist';
+                color: #333333;
+            }
+
+
+        }
+    }
+
+
+    .descriptionWrapperRP{
+        height: fit-content;
+        width: 95%;
+        .descriptionRP{
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+    }
+
+    .ingredientsWrapperRP{
+        width: 95%;
+        height: fit-content;
+        //border: 1px solid red;
+        margin-bottom: 20px;
+
+
+        .iwHeaderRP{
+            width: 100%;
+            height: fit-content;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            .ingredientsHeader{
+                margin: 0;
+                font-family: 'Urbanist';
+                font-size: 17px;
+                letter-spacing: .5px;
+                color: #333333;
+            }
+        }
+        
+
+        .itemsRP{
+            width: 100%;
+            height: fit-content;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-top: 10px;
+            //border: 1px solid blue;
+            display: flex;
+            flex-direction: column;
+            color: #666666;
+        }
+    }
+
+    
+    .procedureWrapperRP{
+        width: 95%;
+        height: fit-content;
+        //border: 1px solid red;
+
+        display: flex;
+        flex-direction: column;
+
+        .procedureHeaderRP{
+            width: 100%;
+            //border: 1px solid blue;
+            height: fit-content;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+
+            .procedureHeader{
+                margin: 0;
+                font-family: 'Urbanist';
+                letter-spacing: .5px;
+                font-size: 17px;
+                color: #333333;
+            }
+        }
+
+        .procedureRP{
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+        
+    }
+
+
+
+    .contentWrapperRP{
+        width: 95%;
+        border-top: #666666 1px solid;
+        border-bottom:  #666666 1px solid;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        .procedureRP{
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+
+        .descriptionRP{
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+
+
+        .itemsRP table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .itemsRP th, .itemsRP td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-family: 'Urbanist';
+            color: #666666;
+        }
+        
+        .itemsRP th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .itemsRP tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .itemsRP tr:hover {
+            background-color: #f1f1f1;
+        }
+    }
+
+
+    .customSegmentButtonRP{
+        --indicator-color: transparent;
+        --color: var(--ion-color-medium); 
+    }
+
+      
+    ion-segment-button.ion-activated span {
+        color: #ff3131; /* Active text color */
+      }
+
+
+    .prepDivRP{
+        width: 95%;
+        //border: 1px solid red;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        .prepTagRP{
+            font-size: 15px;
+            font-family: 'Urbanist';
+            color: #666666;
+
+            .prepTagRPInner{
+                font-weight: 600;
+            }
+        }
+    }
+
+
+    .saveButtonDivRP{
+        width: 95%;
+        //border: 1px solid red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 25px;
+
+        .saveIconWrapper{
+            display: inline-block;
+            transition: transform 0.3s ease;
+          
+            &.animate {
+              animation: pop 0.3s ease;
+            }
+            
+            &.saved {
+              color: #28a745; // Green for saved state
+            }
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            //border: 1px solid red;
+            border-radius: 50%;
+            background-color: #ff3131;
+
+            &.saved{
+                background-color: #28a745;
+            }
+
+            .saveIcon{
+                font-size: 25px;
+                color:white;
+            }
+        }
+    }
+}
+

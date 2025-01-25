@@ -4,7 +4,7 @@ import {   IonTabs,IonTabBar,
     IonRouterOutlet,
     IonIcon,
     IonInput,IonList, IonItem, IonSelect, IonSelectOption,
-    IonTextarea} from '@ionic/react';
+    IonTextarea,useIonLoading} from '@ionic/react';
 
 import { addDoc, arrayUnion, collection, doc, getDoc,updateDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -23,6 +23,7 @@ import { trashOutline } from 'ionicons/icons';
 import { cameraOutline } from 'ionicons/icons';
 import IngredientInput from '../../components/IngredientInput/Ingredientinput';
 import { db } from '../../firebaseConfig';
+import axios from 'axios';
 const Posttab: React.FC = () =>{
 
 
@@ -35,17 +36,56 @@ const Posttab: React.FC = () =>{
     const [procedure,setProcedure] = useState("")
     const [mainCategory,setMainCategory] = useState("")
     const [subCategory,setSubCategory] = useState("")
-    
+    const [loading,setLoading] = useState(false)
+    const [serving,setServing] = useState("")
+    const [prepTime,setPrep] = useState("")
+    const [uploading,setUploading] = useState(false)
+    const [uploadedUrl,setUploadedUrl] = useState("")
+
     const [present] = useIonToast()
+    const [presentLoad,dismiss] = useIonLoading()
+    const username = localStorage.getItem("username") as string
+
+
+    const fileToBase64 = (file:File) => {
+
+        return new Promise((resolve,reject) => {
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+
+                if(typeof reader.result === 'string'){
+                    resolve(reader.result.split(',')[1])
+                } else { reject(new Error("Failed"))}
+            }
+            reader.onerror = reject
+            reader.readAsDataURL(file)
+        })
+
+
+    }
+
+    const handleServing = (event:CustomEvent) => {
+        let newServe = event.detail.value
+        console.log("New serve ", newServe)
+        setServing(newServe)
+    }
+
+    const handlePrepTime = (event:CustomEvent) => {
+        let newPrep = event.detail.value
+        console.log("New serve ", newPrep)
+        setPrep(newPrep)
+    }
+
     const handleUpdate = async() => {
 
 
         const itemsArr = ingredients
 
         
-        if(title.length < 10){
+        if(title.length < 5){
             present({
-                message: 'Recipe title should be longer than 10 characters',
+                message: 'Recipe title should be longer than 5 characters',
                 duration: 1500,
                 position: "top",
               
@@ -150,46 +190,93 @@ const Posttab: React.FC = () =>{
 
 
         const userDocRef = doc(db,'users',userDocId);
-        //const recipeDocRef = doc(db,'recipes')
+     
 
-
+        presentLoad({
+            message: 'Uploading Post...',
+          })
 
         try{
 
-            const storage = getStorage();
-            const storageRef = ref(storage, `recipes/${Date.now()}-${file.name}`)
+
+
+            setUploading(true)
+            setLoading(true)
+            const formData = new FormData();
+            formData.append("file",file);
+            formData.append("upload_preset","dishlyunsignedpreset")
+
+            const response = await fetch(
+                'https://api.cloudinary.com/v1_1/dvl7mqi2r/image/upload',
+                {
+                    method:"POST",
+                    body: formData
+                }
+            )
+
+            const data = await response.json();
+
+
             
-            await uploadBytes(storageRef,file)
+            
+            if (response.ok) {
+                setUploadedUrl(data.secure_url); // Set the uploaded image URL
+                
+                const recipeData = {
+                    recipeId: Date.now().toString(),
+                    title: title,
+                    description: description,
+                    mainCategory: mainCategory,
+                    subCategory:subCategory,
+                    items: ingredients,
+                    recipeCover: data.secure_url,
+                    procedure: procedure,
+                    serving: serving,
+                    prep: prepTime,
+                    author:username,
+                }
 
-            const url = await getDownloadURL(storageRef)
+
+                await addDoc(collection(db,'recipes'),recipeData)
+
+                await updateDoc(userDocRef,{
+                    yourRecipes: arrayUnion(recipeData)
+                })
+
+                setTitle("");
+                setDescription("");
+                setIngredients([])
+                setFile(null)
+                setProcedure("")
+                setMainCategory("")
+                setSubCategory("")
+                setProcedure("")
+                setLoading(false)
+                setServing("")
+                setPrep("")
 
 
-
-            const recipeData = {
-                recipeId: Date.now().toString(),
-                title: title,
-                description: description,
-                mainCategory: mainCategory,
-                subCategory:subCategory,
-                items: ingredients,
-                recipeCover: url,
+                present({
+                    message: 'Recipe posted successfully',
+                    duration: 3500,
+                    position: "top",
+                
+                    color:"success" 
+                    });
+            
+            } else {
+                console.error("Upload failed:", data);
+                alert("Upload failed. Please try again.");
             }
+                    
 
 
-            await addDoc(collection(db,'recipes'),recipeData)
 
-            await updateDoc(userDocRef,{
-                yourRecipes: arrayUnion
-            })
+  
 
 
-            present({
-                message: 'Recipe posted successfully',
-                duration: 3500,
-                position: "top",
-              
-                color:"success" 
-                });
+
+
 
 
 
@@ -201,6 +288,10 @@ const Posttab: React.FC = () =>{
 
         }catch(err){
             console.error(err)
+        } finally {
+            setUploading(false)
+            dismiss()
+
         }
 
 
@@ -361,11 +452,12 @@ const Posttab: React.FC = () =>{
                     </div>
 
 
-                    
+                    <div className="prepservediv">
+                        <IonInput label="Prep Time (Minutes)" type="number" placeholder="000" min="1" max="100" className='prepInput' onIonChange = {(e)=> handlePrepTime(e)}></IonInput>
+                        <IonInput label="Servings" type="number" placeholder="000" min="1" max="50" className='prepInput' onIonChange={(e)=> handleServing(e)}></IonInput>
+                    </div>
                     <div className="addRecipeContainer">
-                        <h5 className="headerRC">
-                            Add Your Recipe
-                        </h5>
+                 
 
                         <div className="ingredientsContainer">
 
@@ -391,20 +483,20 @@ const Posttab: React.FC = () =>{
                     <div className="inputFieldsDivP">
 
                         <h5 className="inputFieldsHeader">Recipe Title</h5>
-                        <IonInput label="Your Recipe Name" labelPlacement="floating" fill="solid" placeholder="Enter recipe name..." clearInput={true} className='inputsChangeFontP' onIonChange={(e)=>handleTitleChange(e)}></IonInput>
+                        <IonInput label="Your Recipe Name" labelPlacement="floating" fill="solid" placeholder="Enter recipe name..." clearInput={true} className='inputsChangeFontP' onIonChange={(e)=>handleTitleChange(e)} value={title}></IonInput>
 
                         <h5 className="inputFieldsHeader">Recipe Description</h5>
 
 
                         <IonTextarea className='textAreaCustomP' label="Short description of your recipe" labelPlacement="floating" fill="solid" placeholder="Recipe description..." autoGrow={true} counter={true} onIonChange={(e)=>handleDescriptionChange(e)}
-                        maxlength={250} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
+                        maxlength={550} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`} value={description}>
 
                         </IonTextarea>
 
                         
                         <h5 className="inputFieldsHeader">Procedure</h5>
 
-                        <IonTextarea className='textAreaCustomP' label="Recipe procedure" labelPlacement="floating" fill="solid" placeholder="Recipe procedure..." autoGrow={true} onIonChange={(e)=> handleProcedure(e)}>
+                        <IonTextarea className='textAreaCustomP' value={procedure} label="Recipe procedure" labelPlacement="floating" fill="solid" placeholder="Recipe procedure..." autoGrow={true} onIonChange={(e)=> handleProcedure(e)}>
 
                         </IonTextarea>
 

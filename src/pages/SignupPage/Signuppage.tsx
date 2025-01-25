@@ -76,6 +76,7 @@ const Signuppage: React.FC = () => {
             await setDoc(doc(db,"users",user.uid),{
                 username: username,
                 email:user.email,
+                savedRecipes: [],
                 createdAt: new Date()
             });
 

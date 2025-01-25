@@ -2,7 +2,7 @@
 import {   IonTabs,IonTabBar,
     IonTabButton,IonContent,useIonToast, IonHeader, IonPage, IonTitle, IonToolbar,IonBreadcrumbs,IonButton, 
     IonRouterOutlet,
-    IonIcon} from '@ionic/react';
+    IonIcon,useIonRouter} from '@ionic/react';
 
 import './hometab.scss'
 import { flameOutline } from 'ionicons/icons';
@@ -35,15 +35,76 @@ import vegetarian from '../../AssetsImg/subcategories/vegetarian.svg'
 import sweet from '../../AssetsImg/subcategories/sweet.svg'
 import { useEffect, useState } from 'react';
 import { arrowForwardOutline } from 'ionicons/icons';
+import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
+
+import { useHistory } from 'react-router';
+type Recipe = {
+    id: string,
+    title: string,
+    cover: string
+}
 
 const Hometab: React.FC = () =>{
 
+
+    const [results,setResults] = useState<Recipe[]>([]) 
+    const router = useIonRouter()
+    useEffect(()=>{
+
+        const fetchDatas = async() => {
+
+            try{
+                const querySnapshot = await getDocs(collection(db,"recipes"))
+
+                setResults(
+                    querySnapshot.docs.map((doc)=>{
+                        const data = doc.data();
+                        return{
+                            id: doc.id,
+                            title: data.title,
+                            cover:data.recipeCover
+                        }
+                    })
+                )
+            }
+            catch(err){
+
+            }
+
+
+            
+        }
+
+        fetchDatas()
+
+
+
+
+
+
+
+    },[])
+
+    useEffect(() => {
+        console.log(`Page mounted: ${location.pathname}`);
+        return () => {
+          console.log(`Page unmounted: ${location.pathname}`);
+        };
+      }, [location.pathname]);
+
+
+
+   
 
     const [present] = useIonToast()
 
     const [connectivity,setConnectivity] = useState<boolean>(navigator.onLine);
 
+
+
+    
 
     const updateConnectivity = () => {
         const isOnline = navigator.onLine;
@@ -64,6 +125,10 @@ const Hometab: React.FC = () =>{
     
         
     },[])
+
+    const navigateComfortFoods = () => {
+        router.push(`/viewAll/${"ComfortFoods"}`,"forward")
+    }
 
     return(
         <IonPage>
@@ -182,12 +247,14 @@ const Hometab: React.FC = () =>{
     
     
                             <div className="cardWrappers">
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
+
+                                {results.map((result)=>{
+
+                                    return <Smallcard data={result}/>
+
+                                })}
+                                
+                          
                             </div>
 
 
@@ -207,12 +274,7 @@ const Hometab: React.FC = () =>{
     
     
                             <div className="cardWrappers">
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
+                
                             </div>
 
 
@@ -232,12 +294,7 @@ const Hometab: React.FC = () =>{
     
     
                             <div className="cardWrappers">
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
+              
                             </div>
 
 
@@ -257,12 +314,7 @@ const Hometab: React.FC = () =>{
     
     
                             <div className="cardWrappers">
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
+             
                             </div>
 
 
@@ -282,12 +334,7 @@ const Hometab: React.FC = () =>{
     
     
                             <div className="cardWrappers">
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
+              
                             </div>
 
 
@@ -308,17 +355,12 @@ const Hometab: React.FC = () =>{
     
     
                             <div className="cardWrappers">
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
-                                <Smallcard/>
+      
                             </div>
 
 
                             <div className="subCategoryButtonContainer">
-                                <IonButton className='viewAllButton'> <IonIcon icon={arrowForwardOutline} slot='end'/>View All </IonButton>
+                                <IonButton className='viewAllButton' onClick={navigateComfortFoods}> <IonIcon icon={arrowForwardOutline} slot='end'/>View All </IonButton>
                             </div>
                         </div>
 
